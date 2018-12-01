@@ -43,27 +43,29 @@ function Collisions:fixedUpdate()
       collider.shape:moveTo(transform.position.x, transform.position.y)
       collider.shape:setRotation(transform.rotation)
 
-      local collisions = collisionWorld:collisions(collider.shape)
+      if collider.shape.entity then --FIXME: If this is false the entity wasn't properly flushed
+         local collisions = collisionWorld:collisions(collider.shape)
 
-      local col
-      for i=#collisions, 1, -1 do
-         col, collisions[i] = collisions[i], nil
+         local col
+         for i=#collisions, 1, -1 do
+            col, collisions[i] = collisions[i], nil
 
-         --col.entity is the entity you are colliding with
-         --col.x and col.y define the separating vector
+            --col.entity is the entity you are colliding with
+            --col.x and col.y define the separating vector
 
-         collider.shape:move(col.x, col.y)
+            collider.shape:move(col.x, col.y)
 
-         local x, y = collider.shape:center()
-         transform.position.x = x
-         transform.position.y = y
+            local x, y = collider.shape:center()
+            transform.position.x = x
+            transform.position.y = y
 
-         --Free col
-         col.entity, col.x, col.y = nil, nil, nil
-         TablePool:pushEmpty(col)
+            --Free col
+            col.entity, col.x, col.y = nil, nil, nil
+            TablePool:pushEmpty(col)
+         end
+
+         TablePool:pushEmpty(collisions) --Free collisions
       end
-
-      TablePool:pushEmpty(collisions) --Free collisions
    end
 end
 

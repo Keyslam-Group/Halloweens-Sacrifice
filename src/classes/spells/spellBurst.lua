@@ -31,7 +31,6 @@ function SpellBurst:cast(e, world)
          velocity = velocity * self.projectileSpeed
 
          local position = transform.position:clone()
-         print(position, position.x, position.y)
          world:addEntity(Concord.entity()
             :assemble(A.bullet, position, velocity)
          )
