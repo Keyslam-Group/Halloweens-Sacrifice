@@ -14,17 +14,17 @@ local W = require("src.worlds")
 local currentWorld = W.game
 
 function love.load()
-	currentWorld:emit("load")
+   currentWorld:emit("load")
 end
 
 function love.update(dt)
-	currentWorld:emit("update", dt)
+   currentWorld:emit("update", dt)
 end
 
 function love.fixedUpdate(dt) -- luacheck: ignore
-	currentWorld:emit("fixedUpdate", dt)
+   currentWorld:emit("fixedUpdate", dt)
 end
 
 function love.draw()
-	currentWorld:emit("draw")
+   currentWorld:emit("draw")
 end

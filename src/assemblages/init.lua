@@ -1,4 +1,4 @@
 return {
-	player = require(... ..".player"),
-	bullet = require(... ..".bullet"),
+   player = require(... ..".player"),
+   bullet = require(... ..".bullet"),
 }

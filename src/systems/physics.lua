@@ -5,13 +5,13 @@ local C = require("src.components")
 local Physics = Concord.system({C.transform, C.speed})
 
 function Physics:fixedUpdate(dt)
-	for _, e in ipairs(self.pool) do
-		local transform = e[C.transform]
-		local speed     = e[C.speed]
+   for _, e in ipairs(self.pool) do
+      local transform = e[C.transform]
+      local speed     = e[C.speed]
 
-		transform.position = transform.position + speed.velocity * dt
-		speed.velocity = speed.velocity * speed.friction
-	end
+      transform.position = transform.position + speed.velocity * dt
+      speed.velocity = speed.velocity * speed.friction
+   end
 end
 
 return Physics

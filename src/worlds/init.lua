@@ -1,3 +1,3 @@
 return {
-	game = require(... ..".game"),
+   game = require(... ..".game"),
 }
