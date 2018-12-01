@@ -1,0 +1,15 @@
+{
+    "name": "Spell'emup!",
+    "tileSize": 16,
+    "defaultMapWidth": 100,
+    "defaultMapHeight": 100,
+    "maxMapWidth": 1000,
+    "maxMapHeight": 1000,
+    "tilesets": [
+        {
+            "name": "main",
+            "imagePath": "tiles.png"
+        }
+    ],
+    "entities": []
+}

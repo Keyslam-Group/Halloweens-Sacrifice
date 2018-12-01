@@ -2,6 +2,7 @@ local Concord = require("lib.concord")
 local Vector  = require("lib.vector")
 local HC      = require("lib.hc")
 local Push    = require("lib.push")
+local Map     = require("lib.gpgploader")
 local Batch = require("src.classes.batch")
 
 local C = require("src.components")
@@ -18,13 +19,36 @@ Game.worlds = {
    ["game"] = HC.new(100),
 }
 
-function Game:load()
+Game.project = Map.loadProject('map')
+Game.level   = Map.loadLevel('level', Game.project, Game.worlds["game"])
 
+Game.order = {
+   "New tile layer",
+   "foreground",
+}
+
+function Game:load()
+   --print("Hey")
+end
+
+local function render (_, item, image)
+   love.graphics.setColor(1, 1, 1, 1)
+   love.graphics.draw(image, item[5], item[1], item[2])
 end
 
 function Game:draw()
    Push:start()
 
+   local w, h = Push:getDimensions()
+   for _,name in ipairs(self.order) do
+      local layer = self.level.layers[name]
+      if layer then
+         local image = self.project.tilesets[layer.tilesetName].image
+         layer.spatialhash:inSameCell(0, 0, w, h, render, image)
+      else
+         --print("Wrong layer", name)
+      end
+   end
    self.batches.background:draw()
 
    self.worlds.game._hash:draw("line", false, false)
