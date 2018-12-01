@@ -21,13 +21,13 @@ function SpellBurst:cast(e, world)
    if transform then
       local mx, my = love.mouse.getPosition()
 
-      mx = mx / (love.graphics.getWidth() * Camera.w)
-      my = my / (love.graphics.getHeight() * Camera.h)
-
-      mx, my = Camera:toWorldCoords(mx, my)
+      mx = mx / (love.graphics.getWidth()  / Camera.w) - Camera.w/2 + Camera.x
+      my = my / (love.graphics.getHeight() / Camera.h) - Camera.h/2 + Camera.y
 
       local target = Vector(mx, my)
-      local direction = transform.position:angleTo(target)
+
+      local delta = target - transform.position
+      local direction = math.atan2(delta.y, delta.x)
 
       for offset = -1, 1 do
          local newDirection = direction + offset * 0.05
