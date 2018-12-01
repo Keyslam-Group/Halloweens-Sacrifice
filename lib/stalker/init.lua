@@ -99,10 +99,10 @@ end
 
 function Camera:attach()
     love.graphics.push()
-    love.graphics.translate(self.w/2, self.h/2)
+    love.graphics.translate(math.floor(self.w/2 + 0.5), math.floor(self.h/2 + 0.5))
     love.graphics.scale(self.scale)
     love.graphics.rotate(self.rotation)
-    love.graphics.translate(-self.x, -self.y)
+    love.graphics.translate(math.floor(-self.x + 0.5), math.floor(-self.y + 0.5))
 end
 
 function Camera:detach()
@@ -183,7 +183,7 @@ function Camera:update(dt)
     self:move(horizontal_shake_amount, vertical_shake_amount)
     self.last_horizontal_shake_amount, self.last_vertical_shake_amount = horizontal_shake_amount, vertical_shake_amount
 
-    -- Follow -- 
+    -- Follow --
     if not self.target_x and not self.target_y then return end
 
     -- Set follow style deadzones
@@ -211,8 +211,8 @@ function Camera:update(dt)
     end
 
     -- No deadzone means we just track the target with no lerp
-    if not self.deadzone then 
-        self.x, self.y = self.target_x, self.target_y 
+    if not self.deadzone then
+        self.x, self.y = self.target_x, self.target_y
         if self.bound then
             self.x = math.min(math.max(self.x, self.bounds_min_x + self.w/2), self.bounds_max_x - self.w/2)
             self.y = math.min(math.max(self.y, self.bounds_min_y + self.h/2), self.bounds_max_y - self.h/2)
@@ -360,7 +360,7 @@ end
 function Camera:fade(duration, color, action)
     self.fade_duration = duration
     self.base_fade_color = self.fade_color
-    self.target_fade_color = color 
+    self.target_fade_color = color
     self.fade_timer = 0
     self.fade_action = action
     self.fading = true

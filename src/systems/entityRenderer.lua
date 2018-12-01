@@ -16,8 +16,8 @@ local render = function (_, item, tilesets)
    if not sprite or not transform then return end
 
    local image, quad = tilesets[sprite.tileset].image, sprite.quad
-   local x, y, angle = transform.position.x, transform.position.y, transform.rotation
-   love.graphics.draw(image, quad, x, y, angle)
+   local x, y, angle = transform.position.x, transform.position.y, transform.rotation --luacheck:ignore
+   love.graphics.draw(image, quad, math.floor(x + 0.5), math.floor(y + 0.5)--[[, angle]])
 end
 
 function EntityRenderer:draw()

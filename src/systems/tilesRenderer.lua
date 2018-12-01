@@ -7,7 +7,7 @@ local TilesRenderer = Concord.system({C.empty})
 
 local function render (_, item, image)
    love.graphics.setColor(1, 1, 1, 1)
-   love.graphics.draw(image, item[5], item[1], item[2])
+   love.graphics.draw(image, item[5], math.floor(item[1] + 0.5), math.floor(item[2] + 0.5))
 end
 
 function TilesRenderer:draw()
