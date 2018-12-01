@@ -24,7 +24,7 @@ end
 
 function Game:draw()
 	Push:start()
-	
+
 	self.batches.background:draw()
 
 	self.worlds.game._hash:draw("line", false, false)
