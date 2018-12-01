@@ -20,10 +20,14 @@ function SpellBurst:cast(e, world)
 
    if transform then
       local mx, my = love.mouse.getPosition()
-      local rmx, rmy = Camera:toWorldCoords(mx, my)
 
-      local target = Vector(rmx, rmy)
-      local direction = target:angleTo(transform.position)
+      mx = mx / (love.graphics.getWidth() * Camera.w)
+      my = my / (love.graphics.getHeight() * Camera.h)
+
+      mx, my = Camera:toWorldCoords(mx, my)
+
+      local target = Vector(mx, my)
+      local direction = transform.position:angleTo(target)
 
       for offset = -1, 1 do
          local newDirection = direction + offset * 0.05

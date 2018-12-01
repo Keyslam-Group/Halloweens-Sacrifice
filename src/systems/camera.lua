@@ -35,6 +35,14 @@ function Camera:finish()
    Camera_:detach()
    Camera_:draw()
 
+   local mx, my = love.mouse.getPosition()
+
+   mx = mx / (love.graphics.getWidth() / Camera_.w)
+   my = my / (love.graphics.getHeight() / Camera_.h)
+
+   mx, my = Camera_:toWorldCoords(mx, my)
+   love.graphics.circle("fill", mx, my, 5)
+
    love.graphics.setCanvas()
 
    love.graphics.setColor(1, 1, 1, 1)
