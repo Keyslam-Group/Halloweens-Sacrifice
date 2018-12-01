@@ -188,6 +188,7 @@ function shash:overlapping(x, y, w, h, fn, ...)
     -- Got object, use its entity
     each_overlapping_cell(self, e, each_overlapping_in_cell, e, set, y, w, h, fn, ...)
   else
+    if type(x) == 'table' then print(x, unpack(x)) end
     -- Got bounding box, make temporary entity
     local temp = pool:pop()
     temp[1], temp[2], temp[3], temp[4] = x, y, x + w, y + h

@@ -125,7 +125,7 @@ function Map.loadLevel (file, project, hc)
     if layer.type == "Tile" then level.layers[layer.name] = state end
   end
 
-  return level
+  return level.layers
 end
 
 return Map

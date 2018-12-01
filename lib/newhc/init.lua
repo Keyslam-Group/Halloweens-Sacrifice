@@ -105,7 +105,7 @@ function HC:neighbors(shape, fn, ...)
 end
 
 local function collider (shape, other, set, fn, ...)
-  local collides, dx, dy = shape:collidesWith(other)
+  local collides, dx, dy = shape[5]:collidesWith(other[5])
 
   if collides then
     if fn then
@@ -115,6 +115,7 @@ local function collider (shape, other, set, fn, ...)
       t.entity, t.x, t.y = other, dx, dy
 
       table.insert(set, t)
+    end
   end
 end
 

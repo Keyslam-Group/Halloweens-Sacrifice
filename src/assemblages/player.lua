@@ -5,7 +5,7 @@ local C = require("src.components")
 
 return Concord.assemblage(function(e, position)
    e:give(C.transform, position, 0)
-    :give(C.sprite, love.graphics.newQuad(0, 128, 16, 16, 320, 384), "background")
+    :give(C.sprite, love.graphics.newQuad(0, 128, 16, 16, 320, 384), "main")
     :give(C.collider, Shapes.CircleShape(position.x, position.y, 5), "game")
     :give(C.playerControls,
       {"key:up",    "key:w", "axis:lefty-", "button:dpup"},

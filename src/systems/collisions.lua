@@ -1,4 +1,5 @@
 local Concord = require('lib.concord')
+local TablePool = require("lib.newhc.pool") --To reuse tables!
 
 local C = require("src.components")
 
@@ -43,14 +44,26 @@ function Collisions:fixedUpdate()
       collider.shape:setRotation(transform.rotation)
 
       local collisions = collisionWorld:collisions(collider.shape)
-      for _, separatingVector in pairs(collisions) do
-         collider.shape:move(separatingVector.x, separatingVector.y)
+
+      local col
+      for i=#collisions, 1, -1 do
+         col, collisions[i] = collisions[i], nil
+
+         --col.entity is the entity you are colliding with
+         --col.x and col.y define the separating vector
+
+         collider.shape:move(col.x, col.y)
 
          local x, y = collider.shape:center()
-
          transform.position.x = x
          transform.position.y = y
+
+         --Free col
+         col.entity, col.x, col.y = nil, nil, nil
+         TablePool:pushEmpty(col)
       end
+
+      TablePool:pushEmpty(collisions) --Free collisions
    end
 end
 

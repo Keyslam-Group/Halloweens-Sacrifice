@@ -1,7 +1,6 @@
 local Concord = require("lib.concord")
 
-return Concord.component(function(e, quad, tag)
+return Concord.component(function(e, quad, tileset)
    e.quad = quad
-   e.tag  = tag
-   e.id   = nil
+   e.tileset = tileset
 end)
