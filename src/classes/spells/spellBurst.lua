@@ -24,7 +24,7 @@ function SpellBurst:cast(e, world)
       local target = Vector(rmx, rmy)
       local direction = target:angleTo(transform.position)
 
-      for offset = -6, 6 do
+      for offset = -1, 1 do
          local newDirection = direction + offset * 0.05
 
          local velocity = Vector(math.cos(newDirection), math.sin(newDirection))

@@ -21,6 +21,8 @@ function Collisions:flush()
 
       local collisionWorld = world.worlds[collider.tag]
 
+      collider.shape.entity = e
+
       collider.shape:moveTo(transform.position.x, transform.position.y)
       collider.shape:setRotation(transform.rotation)
 

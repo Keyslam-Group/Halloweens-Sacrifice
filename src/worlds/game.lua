@@ -51,6 +51,7 @@ function Game:draw()
    end
    self.batches.background:draw()
 
+   --[[
    self.worlds.game._hash:draw("line", false, false)
 
    local shapes = self.worlds.game._hash:shapes()
@@ -58,6 +59,7 @@ function Game:draw()
       shape:draw("line")
    end
 
+   ]]
    Push:finish()
 end
 
@@ -71,7 +73,7 @@ Game:addEntity(Concord.entity()
 )
 
 Game:addEntity(Concord.entity()
-   :assemble(A.player, Vector(10, 100))
+   :assemble(A.player, Vector(20, 100))
    :remove(C.playerControls)
    :apply()
 )
