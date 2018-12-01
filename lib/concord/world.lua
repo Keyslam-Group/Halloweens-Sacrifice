@@ -90,8 +90,8 @@ function World:flush()
       for i = 1, #marked do
          local e = marked[i]
 
-         e.Worlds:apply()
-         e.Worlds:checkEntity(e)
+         e.worlds:apply()
+         e.worlds:checkEntity(e)
       end
    end
 

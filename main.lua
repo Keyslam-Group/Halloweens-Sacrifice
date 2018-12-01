@@ -3,12 +3,6 @@ love.graphics.setDefaultFilter("nearest", "nearest")
 
 require("lib.steady")
 
-local Push = require("lib.push")
-local gameWidth, gameHeight = 240, 180
-local windowWidth, windowHeight = love.graphics.getDimensions()
-
-Push:setupScreen(gameWidth, gameHeight, windowWidth, windowHeight, {fullscreen = false})
-
 local W = require("src.worlds")
 
 local currentWorld = W.game

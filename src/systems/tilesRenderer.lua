@@ -1,5 +1,5 @@
 local Concord = require("lib.concord")
-local Push    = require("lib.push")
+local Camera = require("src.camera")
 
 local C = require("src.components")
 
@@ -14,7 +14,7 @@ function TilesRenderer:draw()
    local world = self:getWorld()
 
    local tilesets = world.project.tilesets
-   local x, y, w, h = 0, 0, Push:getDimensions() --TODO: Get the visible area (from the Camera)
+   local x, y, w, h = 0, 0, Camera.w, Camera.h
 
    for _,name in ipairs(world.order) do --Iterate over the order of the layers
       local layer = world.layers[name] --Get the layer

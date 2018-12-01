@@ -1,7 +1,8 @@
 local Concord = require("lib.concord")
 local Class = require("lib.class")
-local Push = require("lib.push")
 local Vector = require("lib.vector")
+
+local Camera = require("src.camera")
 
 local SpellBase = require("src.classes.spells.spellBase")
 
@@ -19,7 +20,7 @@ function SpellBurst:cast(e, world)
 
    if transform then
       local mx, my = love.mouse.getPosition()
-      local rmx, rmy = Push:toGame(mx, my)
+      local rmx, rmy = Camera:toWorldCoords(mx, my)
 
       local target = Vector(rmx, rmy)
       local direction = target:angleTo(transform.position)

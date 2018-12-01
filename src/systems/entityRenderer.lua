@@ -1,5 +1,6 @@
 local Concord = require("lib.concord")
-local Push    = require("lib.push")
+
+local Camera = require("src.camera")
 
 local C = require("src.components")
 
@@ -25,7 +26,7 @@ function EntityRenderer:draw()
    local spatialhash = world.worlds["game"]:hash()
    local tilesets    = world.project.tilesets
 
-   local x, y, w, h = 0, 0, Push:getDimensions() --TODO: Get the visible area (from the Camera)
+   local x, y, w, h = 0, 0, Camera.w, Camera.h
 
    spatialhash:inSameCell(x, y, w, h, render, tilesets)
 end
