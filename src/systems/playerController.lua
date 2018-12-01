@@ -1,5 +1,6 @@
 local Concord = require("lib.concord")
 local Vector  = require("lib.vector")
+local Push    = require("lib.push")
 
 local C = require("src.components")
 local A = require("src.assemblages")
@@ -22,7 +23,10 @@ function PlayerController:fixedUpdate(dt)
 		transform.position.y = transform.position.y + y * 100 * dt
 
 		if controller:pressed("shoot") then
-			local target = Vector(love.mouse.getX(), love.mouse.getY())
+			local mx, my   = love.mouse.getPosition()
+			local rmx, rmy = Push:toGame(mx, my)
+
+			local target = Vector(rmx, rmy)
 			local direction = target - transform.position
 			direction:normalizeInplace()
 
