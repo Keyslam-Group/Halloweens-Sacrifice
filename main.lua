@@ -1,5 +1,9 @@
-local Concord = require("lib.concord")
+love.graphics.setBackgroundColor(0.1, 0.1, 0.1)
 
-local C = require("src.components")
-local S = require("src.systems")
-local A = require("src.assemblages")
+local W = require("src.worlds")
+
+local currentWorld = W.game
+
+function love.draw()
+	currentWorld:emit("draw")
+end

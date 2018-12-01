@@ -133,13 +133,13 @@ function World:addSystem(system, eventName, callback, enabled)
       error("bad argument #1 to 'World:addSystem' (System expected, got "..type(system)..")", 2)
    end
 
-   if system.__World and system.__World ~= self then
-      error("System already in World '" ..tostring(system.__World).."'")
+   if system.__world and system.__world ~= self then
+      error("System already in World '" ..tostring(system.__world).."'")
    end
 
    if not self.systems:has(system) then
       self.systems:add(system)
-      system.__World = self
+      system.__world = self
 
       system:addedTo(self)
    end

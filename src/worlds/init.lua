@@ -1,0 +1,3 @@
+return {
+	game = require(... ..".game"),
+}
