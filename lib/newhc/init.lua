@@ -112,7 +112,7 @@ local function collider (shape, other, set, fn, ...)
       fn(shape, other, dx, dy, ...)
     else
       local t = pool:pop()
-      t.entity, t.x, t.y = other, dx, dy
+      t.entity, t.x, t.y = other[5], dx, dy
 
       table.insert(set, t)
     end

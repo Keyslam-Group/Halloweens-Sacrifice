@@ -30,14 +30,14 @@ function SpellBurst:cast(e, world)
       local direction = math.atan2(delta.y, delta.x)
 
       for offset = -1, 1 do
-         local newDirection = direction + offset * 0.05
+         local newDirection = direction + offset * 0.2
 
          local velocity = Vector(math.cos(newDirection), math.sin(newDirection))
          velocity = velocity * self.projectileSpeed
 
          local position = transform.position:clone()
          world:addEntity(Concord.entity()
-            :assemble(A.bullet, position, velocity)
+            :assemble(A.bullet, position, velocity, true)
          )
       end
    end

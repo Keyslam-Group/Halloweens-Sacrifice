@@ -41,15 +41,19 @@ Game:addSystem(S.entityRenderer(), "draw")
 Game:addSystem(camera, "draw", "finish")
 
 local Player = Concord.entity()
-   :assemble(A.player, Vector(100, 100))
+   :assemble(A.player, Vector(40, 100))
 
 Game.target = Player
 Game:addEntity(Player)
 
+--[[
 Game:addEntity(Concord.entity()
-   :assemble(A.player, Vector(20, 100))
+   :assemble(A.player, Vector(40, 100))
    :remove(C.playerControls)
+   :give(C.team, false)
+   :give(C.health, 100)
    :apply()
 )
+]]
 
 return Game

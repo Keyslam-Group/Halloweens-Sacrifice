@@ -13,7 +13,7 @@ function Collisions:flush()
 
       local collisionWorld = world.worlds[collider.tag]
 
-      collisionWorld.remove(collider.shape)
+      collisionWorld:remove(collider.shape)
    end
 
    for _, e in ipairs(self.pool.added) do
@@ -47,17 +47,20 @@ function Collisions:fixedUpdate()
          local collisions = collisionWorld:collisions(collider.shape)
 
          local col
-         for i=#collisions, 1, -1 do
+         for i = #collisions, 1, -1 do
             col, collisions[i] = collisions[i], nil
 
             --col.entity is the entity you are colliding with
             --col.x and col.y define the separating vector
 
+            collider.callback(collider.shape, col.entity, col.x, col.y)
+            --[[
             collider.shape:move(col.x, col.y)
 
             local x, y = collider.shape:center()
             transform.position.x = x
             transform.position.y = y
+            ]]
 
             --Free col
             col.entity, col.x, col.y = nil, nil, nil
