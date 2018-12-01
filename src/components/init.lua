@@ -5,4 +5,5 @@ return {
    speed = require(... ..".speed"),
    collider = require(... ..".collider"),
    health = require(... ..".health"),
+   spells = require(... ..".spells"),
 }

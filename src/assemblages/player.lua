@@ -12,6 +12,6 @@ return Concord.assemblage(function(e, position)
       {"key:down",  "key:s", "axis:lefty+", "button:dpdown"},
       {"key:left",  "key:a", "axis:leftx-", "button:dpleft"},
       {"key:right", "key:d", "axis:leftx+", "button:dpright"},
-      {"key:space", "button:a"}
-   )
+      {"key:space", "button:a"})
+    :give(C.spells, 1)
 end)

@@ -20,7 +20,9 @@ function SpriteRenderer:flush()
       local transform = e[C.transform]
       local sprite    = e[C.sprite]
 
-      local id  = batches[sprite.tag]:add(sprite.quad, transform.position.x, transform.position.y, transform.rotation)
+		local x, y = math.floor(transform.position.x + 0.5), math.floor(transform.position.y + 0.5)
+
+      local id  = batches[sprite.tag]:add(sprite.quad, x, y, transform.rotation)
       sprite.id = id
    end
 end
@@ -33,7 +35,9 @@ function SpriteRenderer:draw()
       local transform = e[C.transform]
       local sprite    = e[C.sprite]
 
-      batches[sprite.tag]:set(sprite.id, sprite.quad, transform.position.x, transform.position.y, transform.rotation)
+		local x, y = math.floor(transform.position.x + 0.5), math.floor(transform.position.y + 0.5)
+
+      batches[sprite.tag]:set(sprite.id, sprite.quad, x, y, transform.rotation)
    end
 end
 
