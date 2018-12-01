@@ -7,7 +7,7 @@ function love.conf(t)
 	t.window.title  = "Ludum Dare 43"
 	t.window.width  = 1280
 	t.window.height = 720
-	t.window.vsync  = 1
+	t.window.vsync  = 0
 
 	t.modules.audio    = true
 	t.modules.data     = true

@@ -1,10 +1,12 @@
 local Concord = require("lib.concord")
 local Vector  = require("lib.vector")
+local HC      = require("lib.hc")
 
 local Batch = require("src.classes.batch")
 
 local C = require("src.components")
 local S = require("src.systems")
+local A = require("src.assemblages")
 
 local Game = Concord.world()
 
@@ -12,17 +14,34 @@ Game.batches = {
 	["background"] = Batch(love.graphics.newImage("assets/tiles.png"), 1000, "dynamic"),
 }
 
-function Game.batches.draw()
-	Game.batches.background:draw()
+Game.worlds = {
+	["game"] = HC.new(100),
+}
+
+function Game:draw()
+	self.batches.background:draw()
+
+	self.worlds.game._hash:draw("line", false, false)
+
+	local shapes = self.worlds.game._hash:shapes()
+	for _, shape in pairs(shapes) do
+		shape:draw("line")
+	end
 end
 
-
+Game:addSystem(S.playerController(), "fixedUpdate")
+Game:addSystem(S.physics(), "fixedUpdate")
+Game:addSystem(S.collisions(), "fixedUpdate")
 Game:addSystem(S.spriteRenderer(), "draw")
 
-local entity = Concord.entity()
-entity:give(C.transform, Vector(100, 100), 0)
-entity:give(C.sprite, love.graphics.newQuad(16, 16, 16, 16, 32, 32), "background")
+Game:addEntity(Concord.entity()
+	:assemble(A.player, Vector(100, 100))
+)
 
-Game:addEntity(entity)
+Game:addEntity(Concord.entity()
+	:assemble(A.player, Vector(10, 100))
+	:remove(C.playerControls)
+	:apply()
+)
 
 return Game

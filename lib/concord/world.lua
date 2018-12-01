@@ -256,6 +256,10 @@ function World:emit(eventName, ...)
       end
    end
 
+   if self[eventName] then
+      self[eventName](self, ...)
+   end
+
    return self
 end
 

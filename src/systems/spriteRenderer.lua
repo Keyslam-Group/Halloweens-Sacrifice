@@ -35,8 +35,6 @@ function SpriteRenderer:draw()
 
 		batches[sprite.tag]:set(sprite.id, sprite.quad, transform.position.x, transform.position.y, transform.rotation)
 	end
-
-	batches.draw()
 end
 
 return SpriteRenderer
