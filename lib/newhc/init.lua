@@ -35,8 +35,6 @@ local newCircleShape    = Shapes.newCircleShape
 local newPointShape     = Shapes.newPointShape
 local newRectangleShape = Shapes.newRectangleShape
 
-local noop = function () end
-
 local HC = class("HC")
 function HC:initialize(cell_size)
   self:resetHash(cell_size)
@@ -125,6 +123,75 @@ function HC:collisions(shape, fn, ...)
   self._hash:overlapping(shape, collider, set, fn, ...)
 
   return set
+end
+
+local function intersectAABBSegment(x,y,hw,hh, cx,cy, dx,dy)
+  local scaleX = 1.0 / dx
+  local scaleY = 1.0 / dy
+  local signX = scaleX >= 0 and 1 or -1
+  local signY = scaleY >= 0 and 1 or -1
+
+  local nearTimeX = (x - signX * hw - cx) * scaleX
+  local nearTimeY = (y - signY * hh - cy) * scaleY
+  local farTimeX  = (x + signX * hw - cx) * scaleX
+  local farTimeY  = (y + signY * hh - cy) * scaleY
+
+  if nearTimeX > farTimeY or nearTimeY > farTimeX then return nil end
+
+  local nearTime = math.max(nearTimeX, nearTimeY)
+  local farTime  = math.min(farTimeX,  farTimeY )
+
+  if nearTime >= 1 or farTime <= 0 then return nil end
+
+  local time = math.min(math.max(nearTime, 0), 1)
+  if nearTimeX > nearTimeY then
+    return time, -signX, 0
+  else
+    return time, 0, -signY
+  end
+end
+
+local function getCenterAndHalfSize (x1,y1, x2,y2)
+  x1, x2 = math.min(x1, x2), math.max(x1, x2)
+  y1, y2 = math.min(y1, y2), math.max(y1, y2)
+
+  local cx, cy = (x2 + x1)/2, (y2 + y1)/2
+  local hw, hh = (x2 - x1)/2, (y2 - y1)/2
+
+  return cx,cy, hw,hh, x1,y1,x2,y2
+end
+
+local function sweep (_, other, cx,cy, hh, hw, dx, dy, hit)
+  local x,y,w,h = getCenterAndHalfSize(other:bbox())
+  local time, normX, normY = intersectAABBSegment(x,y,w+hw,h+hh, cx,cy, dx,dy)
+
+  if time and time < hit[1] then
+    hit[1], hit[2] = time,    other
+    hit[3], hit[4] = normX,   normY
+    hit[5], hit[6] = dx*time, dy*time
+  end
+end
+
+function HC:travelDistance(shape, dx, dy)
+  local hit = pool:pop()
+
+  if dx == 0 and dy == 0 then
+    return 0, dx, dy
+  end
+  local cx,cy,hw,hh, x1,y1,x2,y2 = getCenterAndHalfSize(shape:bbox())
+
+  if dx > 0 then x2=x2+dx else x1=x1+dx end
+  if dy > 0 then y2=y2+dy else y1=y1+dy end
+
+  self._hash:overlapping(x1,y1,x2,y2, sweep, cx,cy, hw,hh, dx,dy, hit)
+
+  local time, other, normX,normY, deltaX,deltaY
+  time,   other,  hit[1], hit[2] = hit[1], hit[2], nil, nil
+  normX,  normY,  hit[3], hit[4] = hit[3], hit[4], nil, nil
+  deltaX, deltaY, hit[5], hit[6] = hit[5], hit[6], nil, nil
+
+  pool:pushEmpty(hit)
+  return time, other, normX,normY, deltaX,deltaY
 end
 
 function HC:shapesAt(x, y)
