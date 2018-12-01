@@ -1,6 +1,6 @@
 local Concord = require("lib.concord")
 local Vector  = require("lib.vector")
-local HC      = require("lib.newhc")
+local HC      = require("lib.hc")
 local Map     = require("lib.gpgploader")
 
 local Batch   = require("src.classes.batch")

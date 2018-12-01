@@ -1,5 +1,5 @@
 local Concord = require('lib.concord')
-local TablePool = require("lib.newhc.pool") --To reuse tables!
+local TablePool = require("lib.hc.pool") --To reuse tables!
 
 local C = require("src.components")
 

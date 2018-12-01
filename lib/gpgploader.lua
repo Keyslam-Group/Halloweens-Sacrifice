@@ -1,4 +1,4 @@
-local shash = require("lib.newhc.shash")
+local shash = require("lib.hc.shash")
 local json  = require("lib.json")
 
 local Map = {}
