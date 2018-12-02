@@ -45,11 +45,11 @@ local function collisionCallback(eShape, otherShape)
 end
 
 return Concord.assemblage(
-   function(e, position, velocity, isFriendly)
+   function(e, position, velocity, damage, isFriendly)
       e:give(C.transform, position, 0)
        :give(C.sprite, Quad(5, 243, 6, 10, 320, 384), 'main')
        :give(C.speed, velocity)
        :give(C.collider, Shapes.CircleShape(position.x, position.y, 2), 'game', false, isFriendly, collisionCallback)
-       :give(C.damage, 10)
+       :give(C.damage, damage)
     end
 )

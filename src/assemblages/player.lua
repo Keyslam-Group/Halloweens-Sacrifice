@@ -1,5 +1,6 @@
 local Concord = require("lib.concord")
 local Shapes  = require("lib.hc.shapes")
+local Vector = require("lib.vector")
 local Quad = require("src.classes.quad")
 
 local C = require("src.components")
@@ -40,4 +41,5 @@ return Concord.assemblage(function(e, position)
       {"key:space", "button:a"})
     :give(C.spells, 1)
     :give(C.health, 100)
+    :give(C.speed, Vector(0, 0))
 end)

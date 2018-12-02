@@ -1,5 +1,6 @@
 local Concord = require("lib.concord")
 local Shapes  = require("lib.hc.shapes")
+local Vector = require("lib.vector")
 local Quad = require("src.classes.quad")
 
 local C = require("src.components")
@@ -34,4 +35,6 @@ return Concord.assemblage(function(e, position, target)
     :give(C.collider, Shapes.CircleShape(position.x, position.y, 5), "game", true, false, collisionCallback)
     :give(C.health, 100)
     :give(C.enemyControls, target)
+    :give(C.speed, Vector(0, 0))
+    :give(C.spells, 1)
 end)

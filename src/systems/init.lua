@@ -4,6 +4,6 @@ return {
    camera = require(... ..".camera"),
    playerController = require(... ..".playerController"),
    physics = require(... ..".physics"),
-   collisions = require(... ..".collisions"),
    enemyController = require(... ..".enemyController"),
+   healthRenderer = require(... ..".healthRenderer"),
 }

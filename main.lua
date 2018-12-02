@@ -22,3 +22,7 @@ end
 function love.draw()
    currentWorld:emit("draw")
 end
+
+function love.wheelmoved(x, y)
+   currentWorld:emit("wheelmoved", x, y)
+end

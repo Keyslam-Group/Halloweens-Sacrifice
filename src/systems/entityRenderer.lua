@@ -28,7 +28,7 @@ function EntityRenderer:draw()
    local spatialhash = world.worlds["game"]:hash()
    local tilesets    = world.project.tilesets
 
-   local x, y, w, h = 0, 0, Camera.w, Camera.h
+   local x, y, w, h = Camera.x-Camera.w/2, Camera.y-Camera.h/2, Camera.w, Camera.h
 
    spatialhash:inSameCell(x, y, w, h, render, tilesets)
 end

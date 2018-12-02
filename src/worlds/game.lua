@@ -30,19 +30,21 @@ Game.order = {
 }
 
 local camera = S.camera()
+local playerController = S.playerController()
 
-Game:addSystem(S.playerController(), "fixedUpdate")
+Game:addSystem(playerController, "wheelmoved")
+Game:addSystem(playerController, "fixedUpdate")
 Game:addSystem(S.enemyController(), "fixedUpdate")
 Game:addSystem(S.physics(), "fixedUpdate")
-Game:addSystem(S.collisions(), "fixedUpdate")
 Game:addSystem(camera, "update")
 Game:addSystem(camera, "draw", "start")
 Game:addSystem(S.tilesRenderer(), "draw")
 Game:addSystem(S.entityRenderer(), "draw")
+Game:addSystem(S.healthRenderer(), "draw")
 Game:addSystem(camera, "draw", "finish")
 
 local Player = Concord.entity()
-   :assemble(A.player, Vector(40, 100))
+   :assemble(A.player, Vector(120, 100))
 
 Game.target = Player
 Game:addEntity(Player)
