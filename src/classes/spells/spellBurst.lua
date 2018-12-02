@@ -12,7 +12,7 @@ local A = require("src.assemblages")
 local SpellBurst = Class("SpellBurst", SpellBase)
 
 function SpellBurst:initialize()
-    self.projectileSpeed = 300
+    self.projectileSpeed = 400
 end
 
 function SpellBurst:cast(e, world)
@@ -30,7 +30,7 @@ function SpellBurst:cast(e, world)
       local direction = math.atan2(delta.y, delta.x)
 
       for offset = -1, 1 do
-         local newDirection = direction + offset * 0.2
+         local newDirection = direction + offset * 0.3
 
          local velocity = Vector(math.cos(newDirection), math.sin(newDirection))
          velocity = velocity * self.projectileSpeed

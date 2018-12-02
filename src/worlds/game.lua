@@ -32,6 +32,7 @@ Game.order = {
 local camera = S.camera()
 
 Game:addSystem(S.playerController(), "fixedUpdate")
+Game:addSystem(S.enemyController(), "fixedUpdate")
 Game:addSystem(S.physics(), "fixedUpdate")
 Game:addSystem(S.collisions(), "fixedUpdate")
 Game:addSystem(camera, "update")
@@ -46,14 +47,8 @@ local Player = Concord.entity()
 Game.target = Player
 Game:addEntity(Player)
 
---[[
 Game:addEntity(Concord.entity()
-   :assemble(A.player, Vector(40, 100))
-   :remove(C.playerControls)
-   :give(C.team, false)
-   :give(C.health, 100)
-   :apply()
+   :assemble(A.enemy, Vector(40, 30), Player)
 )
-]]
 
 return Game

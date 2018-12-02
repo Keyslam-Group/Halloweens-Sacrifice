@@ -28,16 +28,10 @@ local function collisionCallback(eShape, otherShape, sepX, sepY)
    end
 end
 
-return Concord.assemblage(function(e, position)
+return Concord.assemblage(function(e, position, target)
    e:give(C.transform, position, 0)
     :give(C.sprite, Quad(0, 128, 16, 16, 320, 384), "main")
-    :give(C.collider, Shapes.CircleShape(position.x, position.y, 5), "game", true, true, collisionCallback)
-    :give(C.playerControls,
-      {"key:up",    "key:w", "axis:lefty-", "button:dpup"},
-      {"key:down",  "key:s", "axis:lefty+", "button:dpdown"},
-      {"key:left",  "key:a", "axis:leftx-", "button:dpleft"},
-      {"key:right", "key:d", "axis:leftx+", "button:dpright"},
-      {"key:space", "button:a"})
-    :give(C.spells, 1)
+    :give(C.collider, Shapes.CircleShape(position.x, position.y, 5), "game", true, false, collisionCallback)
     :give(C.health, 100)
+    :give(C.enemyControls, target)
 end)

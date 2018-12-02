@@ -17,7 +17,9 @@ local render = function (_, item, tilesets)
 
    local image, quad = tilesets[sprite.tileset].image, sprite.quad
    local x, y, angle = transform.position.x, transform.position.y, transform.rotation --luacheck:ignore
-   love.graphics.draw(image, quad, math.floor(x + 0.5), math.floor(y + 0.5)--[[, angle]])
+   local ox, oy = quad.size.x/2, quad.size.y/2
+
+   love.graphics.draw(image, quad.quad, math.floor(x + 0.5), math.floor(y + 0.5), angle, nil, nil, ox, oy)
 end
 
 function EntityRenderer:draw()

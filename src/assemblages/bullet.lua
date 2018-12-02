@@ -1,42 +1,55 @@
-local Concord = require("lib.concord")
-local Shapes  = require("lib.hc.shapes")
+local Concord = require('lib.concord')
+local Shapes = require('lib.hc.shapes')
+local Quad = require('src.classes.quad')
 
-local C = require("src.components")
+local C = require('src.components')
 
 local function collisionCallback(eShape, otherShape)
-    local e = eShape.entity
-    local other = otherShape.entity
+   local e = eShape.entity
+   local other = otherShape.entity
 
-    if other then
-        local eDamage = e[C.damage]
-        local otherHealth = other[C.health]
+   local shouldResolve = false
 
-        if eDamage and otherHealth then
-            local eTeam = e[C.team]
-            local otherTeam = other[C.team]
+   if not other then
+      shouldResolve = true
+   else
+      local otherCollider = other[C.collider]
+      if otherCollider.isSolid then
+         shouldResolve = true
+      end
+   end
 
-            if eTeam and otherTeam then
-                if eTeam.isFriendly ~= otherTeam.isFriendly then
-                    otherHealth.health = otherHealth.health - eDamage.damage
+   if shouldResolve then
+      if other then
+         local eCollider = e[C.collider]
+         local otherCollider = other[C.collider]
 
-                    if otherHealth.health <= 0 then
-                        other:destroy()
-                    end
+         local eDamage = e[C.damage]
+         local otherHealth = other[C.health]
 
-                    e:destroy()
-                end
+         if eDamage and otherHealth then
+            if eCollider.isFriendly ~= otherCollider.isFriendly then
+               otherHealth.health = otherHealth.health - eDamage.damage
+
+               if otherHealth.health <= 0 then
+                  other:destroy()
+               end
+
+               e:destroy()
             end
-        end
-    else
-        e:destroy()
-    end
+         end
+      else
+         e:destroy()
+      end
+   end
 end
 
-return Concord.assemblage(function(e, position, velocity, friendly)
-   e:give(C.transform, position, 0)
-    :give(C.sprite, love.graphics.newQuad(5, 243, 6, 10, 320, 384), "main")
-    :give(C.speed, velocity, 0.99)
-    :give(C.collider, Shapes.CircleShape(position.x, position.y, 2), "game", collisionCallback)
-    :give(C.team, friendly)
-    :give(C.damage, 10)
-end)
+return Concord.assemblage(
+   function(e, position, velocity, isFriendly)
+      e:give(C.transform, position, 0)
+       :give(C.sprite, Quad(5, 243, 6, 10, 320, 384), 'main')
+       :give(C.speed, velocity)
+       :give(C.collider, Shapes.CircleShape(position.x, position.y, 2), 'game', false, isFriendly, collisionCallback)
+       :give(C.damage, 10)
+    end
+)

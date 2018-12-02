@@ -10,7 +10,6 @@ function Physics:fixedUpdate(dt)
       local speed     = e[C.speed]
 
       transform.position = transform.position + speed.velocity * dt
-      speed.velocity = speed.velocity * speed.friction
    end
 end
 

@@ -7,6 +7,6 @@ return {
    collider = require(... ..".collider"),
    health = require(... ..".health"),
    spells = require(... ..".spells"),
-   team = require(... ..".team"),
    damage = require(... ..".damage"),
+   enemyControls = require(... ..".enemyControls"),
 }

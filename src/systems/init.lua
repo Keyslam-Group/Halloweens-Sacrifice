@@ -5,4 +5,5 @@ return {
    playerController = require(... ..".playerController"),
    physics = require(... ..".physics"),
    collisions = require(... ..".collisions"),
+   enemyController = require(... ..".enemyController"),
 }
