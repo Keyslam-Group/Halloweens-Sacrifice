@@ -46,6 +46,7 @@ local function onDeath()
       local shouldPlay = love.math.random(0, 0) == 0
       if shouldPlay then
          local line = love.math.random(1, #voicelines)
+         voicelines[line]:setVolume(3)
          voicelines[line]:play()
       end
    end

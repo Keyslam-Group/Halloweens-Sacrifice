@@ -9,7 +9,7 @@ local currentWorld = W.game
 
 local music = love.audio.newSource("music/main.wav", "static")
 music:setLooping(true)
-music:setVolume(0.6)
+music:setVolume(0.4)
 
 function love.load()
    currentWorld:emit("load")
