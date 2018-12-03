@@ -12,10 +12,10 @@ local A = require("src.assemblages")
 local SpellRing = Class("SpellRing", SpellBase)
 
 function SpellRing:initialize()
-   SpellBase.initialize(self, 0.2)
+   SpellBase.initialize(self, 0.7)
 
-   self.emitSpeed = 80
-   self.followSpeed = 900
+   self.emitSpeed = 250
+   self.followSpeed = 1000
    self.maxSpeed = 200
 
    self.projectiles = {}
@@ -40,7 +40,7 @@ function SpellRing:cast(e, target, world)
          velocity = velocity * self.emitSpeed
 
          local projectile = Concord.entity()
-            :assemble(A.bullet, transform.position:clone(), velocity, 2, collider.isFriendly)
+            :assemble(A.bullet, transform.position:clone(), velocity, 16, collider.isFriendly)
 
          world:addEntity(projectile)
          table.insert(self.projectiles, projectile)

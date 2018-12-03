@@ -10,4 +10,6 @@ return {
    damage = require(... ..".damage"),
    enemyControls = require(... ..".enemyControls"),
    particle = require(... ..".particle"),
+   animation = require(... ..".animation"),
+   enemySpawner = require(... ..".enemySpawner"),
 }

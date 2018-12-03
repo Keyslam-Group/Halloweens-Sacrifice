@@ -1,6 +1,8 @@
 local shash = require("lib.hc.shash")
 local json  = require("lib.json")
 
+local Concord = require("lib.concord")
+local A = require("src.assemblages")
 local Map = {}
 
 local projectFile, levelFile, imageFile = 'assets/%s.gpgpproj', 'assets/%s.gpgp', 'assets/%s'
@@ -57,7 +59,7 @@ local function getQuad (project, name, x, y)
     return tiles.quads[id]
   end
 
-  tiles.quads[id] = love.graphics.newQuad(x * 16, y * 16, 16, 16, tiles.image)
+  tiles.quads[id] = love.graphics.newQuad(x * 64, y * 64, 64, 64, tiles.image)
 
   return tiles.quads[id]
 end
@@ -75,15 +77,23 @@ local function tileLayer (project, layer, state, item, k)
   if type(item.tileY) ~= 'number' then error(errorTile:format('Y', k, layer.name), 2) end
 
   local quad = getQuad(project, layer.tilesetName, item.tileX, item.tileY)
-  local x, y = item.x * 16, item.y * 16
-  state.spatialhash:register(quad, x, y, x + 16, y + 16)
+  local x, y = item.x * 64, item.y * 64
+  state.spatialhash:register(quad, x, y, x + 64, y + 64)
 end
 
 local function geometryLayer (_, _, state, item)
-  state:rectangle(item.x * 16, item.y * 16, 16, 16)
+  state:rectangle(item.x * 64, item.y * 64, 64, 64)
 end
 
-function Map.loadLevel (file, project, hc)
+local Vector = require("lib.vector")
+
+local function spawnerLayer(_, _, state, item)
+  state:addEntity(Concord.entity()
+    :assemble(A.enemySpawner, Vector(item.x * 64, item.y * 64))
+  )
+end
+
+function Map.loadLevel (file, project, hc, instance)
   file = levelFile:format(file)
 
   if not love.filesystem.getInfo(file, 'file', info) then
@@ -103,7 +113,11 @@ function Map.loadLevel (file, project, hc)
 
     local state, layerFunction
     if layer.type == "Geometry" then
-      state, layerFunction = hc, geometryLayer
+      if layer.name == "spawner" then
+        state, layerFunction = instance, spawnerLayer
+      else
+        state, layerFunction = hc, geometryLayer
+      end
     elseif layer.type == "Tile" then
       if type(layer.tilesetName) ~= 'string' then error(errorLayerTileset:format(layer.name), 2) end
       if not project.tilesets[layer.tilesetName] then error(errorNoTileset:format(layer.name, layer.tilesetName), 2) end

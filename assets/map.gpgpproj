@@ -1,11 +1,19 @@
 {
     "name": "Spell'emup!",
-    "tileSize": 16,
+    "tileSize": 64,
     "defaultMapWidth": 100,
     "defaultMapHeight": 100,
     "maxMapWidth": 1000,
     "maxMapHeight": 1000,
     "tilesets": [
+        {
+            "name": "enemy",
+            "imagePath": "enemy.png"
+        },
+        {
+            "name": "player",
+            "imagePath": "player.png"
+        },
         {
             "name": "main",
             "imagePath": "tiles.png"

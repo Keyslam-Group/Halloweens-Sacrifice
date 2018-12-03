@@ -12,9 +12,9 @@ local A = require("src.assemblages")
 local SpellSwift = Class("SpellSwift", SpellBase)
 
 function SpellSwift:initialize()
-   SpellBase.initialize(self, 0.075)
+   SpellBase.initialize(self, 0.8)
 
-   self.projectileSpeed = 400
+   self.projectileSpeed = 300
 end
 
 function SpellSwift:cast(e, target, world)
@@ -29,7 +29,7 @@ function SpellSwift:cast(e, target, world)
 
       local position = transform.position:clone()
       world:addEntity(Concord.entity()
-         :assemble(A.bullet, position, velocity, 3, collider.isFriendly)
+         :assemble(A.bullet, position, velocity, 10, collider.isFriendly)
       )
    end
 end

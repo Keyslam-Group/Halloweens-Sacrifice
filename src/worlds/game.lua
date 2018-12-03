@@ -22,7 +22,7 @@ Game.worlds = {
 }
 
 Game.project = Map.loadProject('map')
-Game.layers  = Map.loadLevel('level', Game.project, Game.worlds["game"])
+Game.layers  = Map.loadLevel('level', Game.project, Game.worlds["game"], Game)
 
 Game.order = {
    "New tile layer",
@@ -32,12 +32,15 @@ Game.order = {
 local camera = S.camera()
 local playerController = S.playerController()
 local particleRenderer = S.particleRenderer()
+local enemySpawner = S.enemySpawner()
 
 Game:addSystem(playerController, "wheelmoved")
 Game:addSystem(playerController, "fixedUpdate")
 Game:addSystem(S.enemyController(), "fixedUpdate")
 Game:addSystem(S.physics(), "fixedUpdate")
 Game:addSystem(particleRenderer, "fixedUpdate")
+Game:addSystem(S.animationController(), "update")
+Game:addSystem(enemySpawner, "update")
 Game:addSystem(camera, "update")
 Game:addSystem(camera, "draw", "start")
 Game:addSystem(S.tilesRenderer(), "draw")
@@ -50,10 +53,8 @@ local Player = Concord.entity()
    :assemble(A.player, Vector(120, 100))
 
 Game.target = Player
-Game:addEntity(Player)
+enemySpawner.target = Player
 
-Game:addEntity(Concord.entity()
-   :assemble(A.enemy, Vector(40, 30), Player)
-)
+Game:addEntity(Player)
 
 return Game

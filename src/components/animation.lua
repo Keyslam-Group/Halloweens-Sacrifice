@@ -9,6 +9,8 @@ function Animation:switch(newState)
    local animation = self.animations[newState]
    animation.currentTime = 0
    animation.currentFrame = 1
+
+   self.current = newState
 end
 
 return Animation

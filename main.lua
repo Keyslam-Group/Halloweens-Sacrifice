@@ -5,11 +5,11 @@ require("lib.steady")
 
 local W = require("src.worlds")
 
-local currentWorld = W.game
+currentWorld = W.game
 
-local music = love.audio.newSource("music/main.wav", "static")
+local music = love.audio.newSource("music/main.ogg", "static")
 music:setLooping(true)
-music:setVolume(0.4)
+music:setVolume(0.25)
 
 function love.load()
    currentWorld:emit("load")

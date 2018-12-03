@@ -14,7 +14,7 @@ function TilesRenderer:draw()
    local world = self:getWorld()
 
    local tilesets = world.project.tilesets
-   local x, y, w, h = 0, 0, Camera.w, Camera.h
+   local x, y, w, h = 0, 0, 10000, 10000
 
    for _,name in ipairs(world.order) do --Iterate over the order of the layers
       local layer = world.layers[name] --Get the layer

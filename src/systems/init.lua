@@ -7,4 +7,6 @@ return {
    enemyController = require(... ..".enemyController"),
    healthRenderer = require(... ..".healthRenderer"),
    particleRenderer = require(... ..".particleRenderer"),
+   animationController = require(... ..".animationController"),
+   enemySpawner = require(... ..".enemySpawner")
 }

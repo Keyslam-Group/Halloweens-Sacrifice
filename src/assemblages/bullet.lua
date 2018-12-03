@@ -37,7 +37,7 @@ local function collisionCallback(eShape, otherShape)
                   other:destroy()
                end
 
-               local intensity = otherCollider.isFriendly and 3 or 1
+               local intensity = otherCollider.isFriendly and 7 or 4
                Camera:shake(intensity, 0.2, 30)
 
                e:destroy()
@@ -72,7 +72,7 @@ local sounds = {
 local function playSound(isFriendly)
    local sound = sounds[love.math.random(1, #sounds)]
 
-   sound:setVolume(isFriendly and 0.2 or 0.1)
+   sound:setVolume(isFriendly and 0.1 or 0.05)
 
    sound:stop()
    sound:play()

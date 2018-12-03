@@ -13,6 +13,8 @@ function PlayerController:fixedUpdate(dt)
       local transform      = e[C.transform]
       local playerControls = e[C.playerControls]
       local spells         = e[C.spells]
+      local health         = e[C.health]
+      local animation = e[C.animation]
 
       local controller = playerControls.controller
 
@@ -22,6 +24,21 @@ function PlayerController:fixedUpdate(dt)
       transform.position.x = transform.position.x + x * 100 * dt
       transform.position.y = transform.position.y + y * 100 * dt
 
+      local anim
+      if x == 0 and y == 0 then
+         anim = "idle"
+      elseif x > y then
+         anim = "walk_right"
+      elseif x < -y then
+         anim = "walk_left"
+      else
+         anim = "walk_down"
+      end
+
+      if animation.current ~= anim then
+         animation:switch(anim)
+      end
+
       local currentSpell = spells.spells[spells.currentSpellIndex]
 
       local mx, my = love.mouse.getPosition()
@@ -29,8 +46,13 @@ function PlayerController:fixedUpdate(dt)
       my = my / (love.graphics.getHeight() / Camera.h) - Camera.h/2 + Camera.y
       local target = Vector(mx, my)
 
+      health.health = math.min(health.health + 35 * dt, health.maxHealth)
+
       if controller:down("shoot") and currentSpell:canCast() then
-         currentSpell:cast(e, target, world)
+         if health.health > 35 then
+            currentSpell:cast(e, target, world)
+            health.health = health.health - 100
+         end
       end
 
       currentSpell:update(e, target, world, dt)
@@ -38,6 +60,7 @@ function PlayerController:fixedUpdate(dt)
 end
 
 function PlayerController:wheelmoved(_, y)
+   --[[
    for _, e in ipairs(self.pool) do
       local spells = e[C.spells]
 
@@ -51,6 +74,7 @@ function PlayerController:wheelmoved(_, y)
          spells.currentSpellIndex = #spells.spells
       end
    end
+   ]]
 end
 
 return PlayerController
