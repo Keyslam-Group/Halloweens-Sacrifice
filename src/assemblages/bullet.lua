@@ -32,6 +32,7 @@ local function collisionCallback(eShape, otherShape)
                otherHealth.health = otherHealth.health - eDamage.damage
 
                if otherHealth.health <= 0 then
+                  otherHealth:onDeath()
                   other:destroy()
                end
 

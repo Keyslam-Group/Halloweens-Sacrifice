@@ -33,7 +33,7 @@ end
 
 function Camera:finish()
    Camera_:detach()
-   Camera_:draw()
+   --Camera_:draw()
 
    love.graphics.setCanvas()
 

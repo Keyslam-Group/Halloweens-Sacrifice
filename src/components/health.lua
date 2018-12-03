@@ -1,6 +1,10 @@
 local Concord = require("lib.concord")
 
-return Concord.component(function(e, health, maxHealth)
+local function none() end
+
+return Concord.component(function(e, health, onDeath)
    e.health    = health or 100
-   e.maxHealth = maxHealth or e.health
+   e.maxHealth = e.health
+
+   e.onDeath = onDeath or none
 end)

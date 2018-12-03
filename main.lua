@@ -7,8 +7,13 @@ local W = require("src.worlds")
 
 local currentWorld = W.game
 
+local music = love.audio.newSource("music/main.wav", "static")
+music:setLooping(true)
+music:setVolume(0.6)
+
 function love.load()
    currentWorld:emit("load")
+   music:play()
 end
 
 function love.update(dt)
