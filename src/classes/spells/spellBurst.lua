@@ -12,9 +12,9 @@ local A = require("src.assemblages")
 local SpellBurst = Class("SpellBurst", SpellBase)
 
 function SpellBurst:initialize()
-   SpellBase.initialize(self, 0.8)
+   SpellBase.initialize(self, 0.7)
 
-   self.projectileSpeed = 300
+   self.projectileSpeed = 400
 end
 
 function SpellBurst:cast(e, target, world)

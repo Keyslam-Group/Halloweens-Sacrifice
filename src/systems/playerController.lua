@@ -21,8 +21,8 @@ function PlayerController:fixedUpdate(dt)
       controller:update()
 
       local x, y = controller:get("move")
-      transform.position.x = transform.position.x + x * 100 * dt
-      transform.position.y = transform.position.y + y * 100 * dt
+      transform.position.x = transform.position.x + x * 160 * dt
+      transform.position.y = transform.position.y + y * 160 * dt
 
       local anim
       if x == 0 and y == 0 then
@@ -46,7 +46,7 @@ function PlayerController:fixedUpdate(dt)
       my = my / (love.graphics.getHeight() / Camera.h) - Camera.h/2 + Camera.y
       local target = Vector(mx, my)
 
-      health.health = math.min(health.health + 35 * dt, health.maxHealth)
+      health.health = math.min(health.health + 45 * dt, health.maxHealth)
 
       if controller:down("shoot") and currentSpell:canCast() then
          if health.health > 35 then

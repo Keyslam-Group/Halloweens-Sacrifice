@@ -56,7 +56,7 @@ ps_friendly:setEmissionRate(80)
 ps_friendly:setSpin(-4, 4)
 
 local ps_unfriendly = love.graphics.newParticleSystem(love.graphics.newImage("assets/particle_1.png"), 100)
-ps_unfriendly:setColors(0.91, 0.43, 0.43, 1,  0.5, 0.2, 0.2, 0)
+ps_unfriendly:setColors(0.91, 0.43, 0.43, 1, 0.91, 0.43, 0.43, 1, 0.5, 0.2, 0.2, 0)
 ps_unfriendly:setParticleLifetime(0.4)
 ps_unfriendly:setEmissionRate(80)
 ps_unfriendly:setSpin(-4, 4)

@@ -12,11 +12,11 @@ local A = require("src.assemblages")
 local SpellRing = Class("SpellRing", SpellBase)
 
 function SpellRing:initialize()
-   SpellBase.initialize(self, 0.7)
+   SpellBase.initialize(self, 0.6)
 
-   self.emitSpeed = 250
+   self.emitSpeed = 150
    self.followSpeed = 1000
-   self.maxSpeed = 200
+   self.maxSpeed = 250
 
    self.projectiles = {}
 end
