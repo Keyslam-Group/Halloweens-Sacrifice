@@ -9,4 +9,5 @@ return {
    spells = require(... ..".spells"),
    damage = require(... ..".damage"),
    enemyControls = require(... ..".enemyControls"),
+   particle = require(... ..".particle"),
 }

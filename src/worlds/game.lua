@@ -31,14 +31,17 @@ Game.order = {
 
 local camera = S.camera()
 local playerController = S.playerController()
+local particleRenderer = S.particleRenderer()
 
 Game:addSystem(playerController, "wheelmoved")
 Game:addSystem(playerController, "fixedUpdate")
 Game:addSystem(S.enemyController(), "fixedUpdate")
 Game:addSystem(S.physics(), "fixedUpdate")
+Game:addSystem(particleRenderer, "fixedUpdate")
 Game:addSystem(camera, "update")
 Game:addSystem(camera, "draw", "start")
 Game:addSystem(S.tilesRenderer(), "draw")
+Game:addSystem(particleRenderer, "draw")
 Game:addSystem(S.entityRenderer(), "draw")
 Game:addSystem(S.healthRenderer(), "draw")
 Game:addSystem(camera, "draw", "finish")
