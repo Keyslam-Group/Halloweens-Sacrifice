@@ -3,17 +3,18 @@ love.graphics.setDefaultFilter("nearest", "nearest")
 
 require("lib.steady")
 
+score = 0
+
 local W = require("src.worlds")
 
-currentWorld = W.game
+currentWorld = W.intro
 
-local music = love.audio.newSource("music/main.ogg", "static")
+music = love.audio.newSource("music/main.ogg", "static")
 music:setLooping(true)
-music:setVolume(0.25)
+music:setVolume(0.08)
 
 function love.load()
    currentWorld:emit("load")
-   music:play()
 end
 
 function love.update(dt)
@@ -30,4 +31,8 @@ end
 
 function love.wheelmoved(x, y)
    currentWorld:emit("wheelmoved", x, y)
+end
+
+function love.keypressed(key)
+   currentWorld:emit("keypressed", key)
 end

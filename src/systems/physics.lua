@@ -57,23 +57,25 @@ function Physics:fixedUpdate(dt)
 
             local col
             for i = #collisions, 1, -1 do
-               col, collisions[i] = collisions[i], nil
+               if not e.destroyed then
+                  col, collisions[i] = collisions[i], nil
 
-               --col.entity is the entity you are colliding with
-               --col.x and col.y define the separating vector
+                  --col.entity is the entity you are colliding with
+                  --col.x and col.y define the separating vector
 
-               collider.callback(collider.shape, col.entity, col.x, col.y)
-               --[[
-               collider.shape:move(col.x, col.y)
+                  collider.callback(collider.shape, col.entity, col.x, col.y)
+                  --[[
+                  collider.shape:move(col.x, col.y)
 
-               local x, y = collider.shape:center()
-               transform.position.x = x
-               transform.position.y = y
-               ]]
+                  local x, y = collider.shape:center()
+                  transform.position.x = x
+                  transform.position.y = y
+                  ]]
 
-               --Free col
-               col.entity, col.x, col.y = nil, nil, nil
-               TablePool:pushEmpty(col)
+                  --Free col
+                  col.entity, col.x, col.y = nil, nil, nil
+                  TablePool:pushEmpty(col)
+               end
             end
 
             TablePool:pushEmpty(collisions) --Free collisions

@@ -109,6 +109,8 @@ function Entity:destroy()
       self.worlds:get(i):removeEntity(self)
    end
 
+   self.destroyed = true
+
    return self
 end
 

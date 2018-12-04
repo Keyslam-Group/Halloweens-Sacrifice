@@ -48,6 +48,7 @@ Game:addSystem(particleRenderer, "draw")
 Game:addSystem(S.entityRenderer(), "draw")
 Game:addSystem(S.healthRenderer(), "draw")
 Game:addSystem(camera, "draw", "finish")
+Game:addSystem(S.scoreRenderer(), "draw")
 
 local Player = Concord.entity()
    :assemble(A.player, Vector(120, 100))

@@ -39,18 +39,27 @@ local voicelines = {
    love.audio.newSource("sounds/voicelines/purrfect_execution.wav", "static"),
    love.audio.newSource("sounds/voicelines/theme_song.wav", "static"),
    love.audio.newSource("sounds/voicelines/trick_or_treat.wav", "static"),
+   love.audio.newSource("sounds/voicelines/santa_doesnt_exist.wav", "static"),
 }
 
 local lastVoicelineTime = love.timer.getTime()
 local function onDeath()
-   if love.timer.getTime() - lastVoicelineTime > 4 then
-      local shouldPlay = love.math.random(0, 3) == 0
-      if shouldPlay then
-         local line = love.math.random(1, #voicelines)
-         voicelines[line]:setVolume(1)
-         voicelines[line]:play()
+   score = score + 1
+   if score == 150 then
+      currentWorld = require("src.worlds.gameWin")
+      return
+   end
 
-         lastVoicelineTime = love.timer.getTime()
+   if score < 150 then
+      if love.timer.getTime() - lastVoicelineTime > 4 then
+         local shouldPlay = love.math.random(0, 4) == 0
+         if shouldPlay then
+            local line = love.math.random(1, #voicelines)
+            voicelines[line]:setVolume(1)
+            voicelines[line]:play()
+
+            lastVoicelineTime = love.timer.getTime()
+         end
       end
    end
 end

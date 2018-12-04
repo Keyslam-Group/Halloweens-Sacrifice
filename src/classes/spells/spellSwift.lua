@@ -29,7 +29,7 @@ function SpellSwift:cast(e, target, world)
 
       local position = transform.position:clone()
       world:addEntity(Concord.entity()
-         :assemble(A.bullet, position, velocity, 10, collider.isFriendly)
+         :assemble(A.bullet, position, velocity, 70, collider.isFriendly)
       )
    end
 end
