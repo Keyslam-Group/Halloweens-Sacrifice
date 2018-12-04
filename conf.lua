@@ -1,10 +1,10 @@
 function love.conf(t)
-   t.identity     = "Ludum Dare 43"
+   t.identity     = "Halloween's Sacrifice"
    t.version      = "11.2"
-   t.console      = true
+   t.console      = false
    t.gammacorrect = true
 
-   t.window.title  = "Ludum Dare 43"
+   t.window.title  = "Halloween's Sacrifice"
    t.window.width  = 1280
    t.window.height = 720
    t.window.vsync  = 0
